@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Image } from "react-native";
 import { connect } from "react-redux";
 import BlankPage2 from "../blankPage2";
 import DrawBar from "../DrawBar";
+
 import { DrawerNavigator, NavigationActions } from "react-navigation";
+
+const norwadian = require("../../../images/norwegiangirl15.jpg");
+
 import {
   Container,
   Header,
@@ -14,8 +18,10 @@ import {
   Icon,
   Left,
   Body,
+  View,
   Right
 } from "native-base";
+
 import { Grid, Row } from "react-native-easy-grid";
 
 import { setIndex } from "../../actions/list";
@@ -62,7 +68,7 @@ class Home extends Component {
           </Left>
 
           <Body>
-            <Title>Home</Title>
+            <Title>Main Page</Title>
           </Body>
 
           <Right>
@@ -75,6 +81,10 @@ class Home extends Component {
           </Right>
         </Header>
         <Content>
+          <Image source={norwadian} style={styles.shadow}>
+            <View style={styles.bg}>
+            </View>
+          </Image>
           <Grid style={styles.mt}>
             {this.props.list.map((item, i) => (
               <Row key={i}>

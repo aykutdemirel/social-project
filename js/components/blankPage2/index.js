@@ -29,7 +29,7 @@ class BlankPage2 extends Component {
           </Left>
 
           <Body>
-            <Title>Blank page</Title>
+            <Title>Blank page 2</Title>
           </Body>
 
           <Right>
