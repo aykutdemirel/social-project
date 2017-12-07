@@ -47,29 +47,24 @@ class Home extends Component {
     }
 
     constructor(props) {
-
         super(props);
 
         this.state = {
-            // create an instance of Animated.ValueXY, whcih will take care of interpolating X and Y values
-            pan: new Animated.ValueXY(),
             showDraggable: true,
-            dropZoneValues: null
+            dropZoneValues: null,
+            pan: new Animated.ValueXY()
         };
-        // PanResponder, which is responsible for doing the dragging, sets the handlers when the user moves and releases the element
-        // Animated.spring method runs the animation
-        // first parameter (i.e. this.state.pan) accepts the animation values
-        // second parameter (i.e. {toValue:{x:0,y:0}}) is a configuration object that defines the toValue, which is the origin coordinates
+
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
-            onPanResponderMove: Animated.event([null, { //the handler will trigger when the element is moving
+            onPanResponderMove: Animated.event([null, {
                 dx: this.state.pan.x,
                 dy: this.state.pan.y
             }]),
             onPanResponderRelease: (e, gesture) => {
-                if (this.isDropZone(gesture)) { //Step 1
+                if (this.isDropZone(gesture)) {
                     this.setState({
-                        showDraggable: false //Step 3
+                        showDraggable: false
                     });
                 } else {
                     Animated.spring(
@@ -92,28 +87,9 @@ class Home extends Component {
         });
     }
 
-    renderDraggable() {
-        // renders green circle based on showDraggable value
-        if (this.state.showDraggable) {
-            return (
-                <View style={styles.draggableContainer}>
-                    <Animated.View
-                        {...this.panResponder.panHandlers}
-                        style={[this.state.pan.getLayout()]}>
-                        <Image source={norwadian} style={styles.shadow}>
-                            <View style={styles.bg}>
-                            </View>
-                        </Image>
-                    </Animated.View>
-                </View>
-            );
-        }
-    }
-
     render() {
-        console.log(DrawNav, "786785786");
         return (
-            <Container style={styles.container}>
+            <View style={styles.container}>
                 <Header>
                     <Left>
 
@@ -140,43 +116,70 @@ class Home extends Component {
                     <Right>
                         <Button
                             transparent
-                            onPress={() => DrawerNav.navigate("DrawerOpen")}
-                        >
+                            onPress={() => DrawerNav.navigate("DrawerOpen")}>
                             <Icon active name="menu"/>
                         </Button>
                     </Right>
                 </Header>
-                <Content>
 
-                    <View style={styles.mainContainer}>
-                        <View
-                            onLayout={this.setDropZoneValues.bind(this)}
-                            style={styles.dropZone}>
-                            <Text style={styles.topText}>Drop me here!</Text>
-                        </View>
-
-                        {this.renderDraggable()}
+                <View style={styles.mainContainer}>
+                    <View
+                        onLayout={this.setDropZoneValues.bind(this)}
+                        style={styles.dropZone}>
+                        <Text style={styles.topText}>Drop me here!</Text>
                     </View>
 
-                    {/*<Grid style={styles.mt}>*/}
-                        {/*{this.props.list.map((item, i) => (*/}
-                            {/*<Row key={i}>*/}
-                                {/*<TouchableOpacity*/}
-                                    {/*style={styles.row}*/}
-                                    {/*onPress={() =>*/}
-                                        {/*this.props.navigation.navigate("BlankPage", {*/}
-                                            {/*name: {item}*/}
-                                        {/*})}*/}
-                                {/*>*/}
-                                    {/*<Text style={styles.text}>{item}</Text>*/}
-                                {/*</TouchableOpacity>*/}
-                            {/*</Row>*/}
-                        {/*))}*/}
-                    {/*</Grid>*/}
-                </Content>
-            </Container>
+                    {this.renderDraggable()}
+                </View>
+
+            </View>
+
         );
     }
+
+    renderDraggable() {
+        if (this.state.showDraggable) {
+            return (
+                <View style={styles.draggableContainer}>
+                    <Animated.View
+                        {...this.panResponder.panHandlers}
+                        style={[this.state.pan.getLayout(), styles.circle]}>
+                        <Image source={norwadian} style={styles.shadow}>
+                            <View style={styles.bg}>
+                            </View>
+                        </Image>
+                    </Animated.View>
+                </View>
+            );
+        }
+    }
+
+    // renderDraggable() {
+    //     // renders green circle based on showDraggable value
+    //     if (this.state.showDraggable) {
+    //         return (
+    //             <View style={styles.draggableContainer}>
+    //
+    //                 {/*<Animated.View*/}
+    //                     {/*{...this.panResponder.panHandlers}*/}
+    //                     {/*style={[this.state.pan.getLayout(), styles.circle]}>*/}
+    //                     {/*<Text>Drag me!</Text>*/}
+    //                 {/*</Animated.View>*/}
+    //
+    //                 <Animated.View
+    //                     {...this.panResponder.panHandlers}
+    //                     style={[this.state.pan.getLayout()]}>
+    //                     <Image source={norwadian} style={styles.shadow}>
+    //                         {/*<View style={styles.bg}>*/}
+    //                         {/*</View>*/}
+    //                     </Image>
+    //                 </Animated.View>
+    //
+    //             </View>
+    //         );
+    //     }
+    // }
+
 }
 
 function bindAction(dispatch) {
@@ -208,4 +211,5 @@ DrawNav.navigationOptions = ({navigation}) => {
         header: null
     };
 };
+
 export default DrawNav;

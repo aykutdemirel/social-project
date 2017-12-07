@@ -11,12 +11,9 @@ export default {
         backgroundColor: '#FBFAFA',
     },
     shadow: {
-        flex: 1,
-        width: null,
-        height: null,
+        width:device_size.width
     },
     bg: {
-        flex: 1,
         marginTop: device_size.height / 1.75,
         paddingTop: 20,
         paddingLeft: 10,
@@ -37,23 +34,28 @@ export default {
         marginTop: 18,
     },
     mainContainer: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#666666',
     },
     dropZone: {
         height: 70,
         backgroundColor: '#2c3e50'
     },
     topText: {
-        marginTop: 25,
-        marginLeft: 5,
-        marginRight: 5,
-        textAlign: 'center',
-        color: '#fff'
+        marginTop   : 25,
+        marginLeft  : 5,
+        marginRight : 5,
+        textAlign   : 'center',
+        color       : '#fff'
     },
     draggableContainer: {
-        position: 'absolute',
-        top: 70,
-        left: 0,
-        width: device_size.width
+        position    : 'absolute',
+        top         : 70,
+        left        : 0
+    },
+    circle : {
+        backgroundColor     : '#1abc9c',
+        width               : device_size.width,
+        height              : device_size.height-140
     }
 };
